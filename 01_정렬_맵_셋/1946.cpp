@@ -1,43 +1,50 @@
 #include <iostream>
-#include <map>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
+
+// 서류 순위와 면접 순위를 쌍으로 저장할 pair<int, int> 를 p라는 이름으로 정의
+typedef pair<int, int> p;
+
+int maxEmploy(vector<p> score) {
+    // 서류 심사(first) 1위는 자동 합격
+    int result = 1, highest_score = score[0].second;
+
+    for (int i = 1; i < score.size(); i++) {
+        // 이전 참가자의 순위보다 현재 순위가 더 높을 (숫자로는 낮을) 경우 합격자 추가
+        if(highest_score > score[i].second) {
+            highest_score = score[i].second; // 면접 순위 갱신
+            result++;
+        }
+    }
+
+    return result;
+}
 
 int main() {
 
     // 입력
-    int t, n;
+    int t, n, result;
     cin >> t;
 
-    // 서류 심사 순위를 key값으로, 면접 순위를 value값으로 갖는 해시맵 선언
-    map<int, int> score;
-    int score_1, score_2;
-
     // 테스트 케이스 갯수만큼 결과 계산
-    for (int i = 0; i < t; i++) {
+    while (t--) {
         cin >> n;
-        int result = n; // 최대 전원 통과 가정
 
-        for (int j = 0; j < n; j++) {
-            cin >> score_1 >> score_2;
-            // 서류 심사 순위 (score_1) 순으로 탐색할 수 있는 맵 생성
-            score[score_1] = score_2;
+        // 면접자들의 순위를 저장할 벡터 정의
+        vector<p> score(n, p(0, 0)); // n개의 데이터를 (0,0)으로 초기화
+
+        for (int i = 0; i < n; i++) {
+            cin >> score[i].first >> score[i].second; // 입력값 벡터에 저장
         }
+
+        // 서류 심사(first) 순서대로 정렬 -> 면접 순위만 비교하면 됨
+        sort(score.begin(), score.end());
 
         // 맵을 탐색하며 면접 순위 비교
-        int cmp = 1; // 비교 대상이 될 지원자의 서류 심사 순위
-        for (int j = 2; j <= n; j++) {
-            // 비교자의 면접 순위보다 현재 지원자의 면접 순위가 낮을 경우 탈락
-            if(score[cmp] < score[j]) {
-                result--; 
-            }
-            // 비교자의 면접 순위보다 높지만 바로 다음 등수가 아닐 경우 비교자 인덱스 변경
-            else if(score[j] < score[cmp] - 1) {
-                cmp = j;
-                j = cmp;
-            }
-        }
+        result = maxEmploy(score);
+
         cout << result << '\n';
     }
     
