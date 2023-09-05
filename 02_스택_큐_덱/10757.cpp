@@ -7,7 +7,6 @@ int main() {
 
     // 입력된 문자 하나를 스택에 저장한 후
     // 뒷자리 (FILO 구조 이용 -> 스택)부터 합하며 계산
-
     stack<int> a, b;
     string a_string, b_string;
 
@@ -51,19 +50,14 @@ int main() {
 
         // 두 스택 모두 값이 있는 경우 연산
         // 두 숫자의 합이 10 이상이면 올림 값이 있으므로 carry 업데이트
-        if(a.top() + b.top() + carry > 9) {
-            result.push((a.top() + b.top() + carry) % 10);
-            carry = 1;
-        } else {
-            result.push(a.top() + b.top() + carry);
-            carry = 0;
-        }
+        result.push((a.top() + b.top() + carry) % 10);
+        carry = (a.top() + b.top() + carry) / 10;
 
         a.pop(); b.pop();
     }
 
     // 만약 올림 수가 남아있을 경우 추가
-    if(carry == 1) {
+    if(carry) {
         result.push(carry);
     }
 
