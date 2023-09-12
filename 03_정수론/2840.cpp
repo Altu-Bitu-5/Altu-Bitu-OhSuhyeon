@@ -8,7 +8,7 @@ int findChar(vector<char> &wheel, vector<bool> &used, int indent, int idx, char 
 
     // 입력받은 간격 만큼 배열을 조회
     // 화살표는 반시계로 돌기 때문에 음수의 나머지로 계산
-    idx = (idx - indent) % n < 0 ? (idx - indent) % n + n : (idx - indent) % n;
+    idx = (idx + indent) % n;
 
     // 접근한 적 있는 인덱스의 문자가 입력받은 문자와 다를 경우
     if(wheel[idx] != '?' && wheel[idx] != c) {
@@ -34,11 +34,12 @@ int main() {
     // 입력
     int n, k;
     cin >> n >> k;
+    const int ALPHA = 26;
 
     // 바퀴 배열 생성
     vector<char> wheel(n, '?');
     // 해당 문자가 바퀴에 이미 들어간 문자인지 확인하기 위한 배열
-    vector<bool> used(26, false);
+    vector<bool> used(ALPHA, false);
     int indent, idx = 0;
     char c;
 
@@ -57,11 +58,8 @@ int main() {
     if(idx == -1) {
         cout << "!";
     } else {
-        while (n--) {
-            cout << wheel[idx++];
-            idx %= wheel.size();
+        for (int i = idx + n; i > idx; i--) {
+            cout << wheel[i % n];
         }
     }
-
-    cout << '\n';
 }

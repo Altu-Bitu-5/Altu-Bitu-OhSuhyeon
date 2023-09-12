@@ -19,18 +19,15 @@ void isPrime(int n, vector<bool> &is_prime) {
     }
 }
 
-bool checkResult(int n, vector<bool> &is_prime) {
+int checkResult(int n, vector<bool> &is_prime) {
     
     // n에서 해당 소수를 뺀 값이 또 소수일 경우 a와 b 값 업데이트
     for (int i = 2; i <= n / 2; i++) {
-        if(is_prime[i]) { // i가 소수인 경우 b의 후보가 됨
-            if (is_prime[n - i]) {
-                cout << n << " = " << i << " + " << n - i << "\n";
-                return true;
-            }
+        if(is_prime[i] && is_prime[n - i]) { // i가 소수인 경우 b의 후보가 됨
+            return i;
         }
     }
-    return false;
+    return -1;
 }
 
 int main() {
@@ -47,17 +44,19 @@ int main() {
 
     while(1) {
         cin >> n;
-        bool flag = false; // 찾았는지 안 찾았는지 체크
+        int result = 0; // 찾았는지 안 찾았는지 체크
 
         if(n == 0) {
             break;
         }
 
         // 가설 검증
-        flag = checkResult(n, is_prime);
+        result = checkResult(n, is_prime);
 
 
-        if(!flag) {
+        if(result != -1) {
+            cout << n << " = " << result << " + " << n - result << "\n";
+        } else {
             cout << "Goldbach's conjecture is wrong.";
         }
     }
