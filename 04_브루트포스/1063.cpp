@@ -1,12 +1,19 @@
 #include <iostream>
-#include <string>
-#include <utility>
 
 using namespace std;
 
 // 돌을 이동할 수 있는지 확인하는 함수
 bool canMove(string king_pos, string rock_pos) {
     return king_pos != rock_pos;
+}
+
+// 체스판을 벗어나지 않는지 확인하는 함수
+bool checkAvail(string pos) {
+    if (pos[0] < 'A' || pos[0] > 'H' || pos[1] < '1' || pos[1] > '8') {
+        return true;
+    }
+
+    return false;
 }
 
 // 킹과 돌을 이동시키는 함수
@@ -24,7 +31,7 @@ void move(pair<string, string>& pos, int direction) {
     king_pos[1] += dy[direction];
 
     // 킹의 위치가 체스판을 벗어나는 경우 해당 스텝 스킵
-    if (king_pos[0] < 'A' || king_pos[0] > 'H' || king_pos[1] < '1' || king_pos[1] > '8') {
+    if (checkAvail(king_pos)) {
         return;
     }
 
@@ -34,7 +41,7 @@ void move(pair<string, string>& pos, int direction) {
         rock_pos[1] += dy[direction];
 
         // 돌의 위치가 체스판을 벗어나지 않는지 확인
-        if (rock_pos[0] < 'A' || rock_pos[0] > 'H' || rock_pos[1] < '1' || rock_pos[1] > '8') {
+        if (checkAvail(rock_pos)) {
             return;
         }
     }
@@ -75,10 +82,8 @@ int main() {
             direction = 7;
         }
 
-        if (direction != -1) {
-            if (canMove(pos.first, pos.second)) {
-                move(pos, direction);
-            }
+        if (direction != -1 && canMove(pos.first, pos.second)) {
+            move(pos, direction);
         }
     }
 

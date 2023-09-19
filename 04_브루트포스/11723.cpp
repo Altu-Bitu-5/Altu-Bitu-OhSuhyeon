@@ -2,6 +2,8 @@
 
 using namespace std;
 
+const int ALL = (1 << 20) - 1;
+
 int setOper(string cmd, int x, int &S) {
     if (cmd == "add") {
         S |= 1<<x; // 합칩합 ( "|" 연산)
@@ -28,7 +30,7 @@ int setOper(string cmd, int x, int &S) {
     }
     
     if (cmd == "all") {
-        S = (1<<20) - 1; //1 ~ 20번째 비트 1로 체크
+        S = ALL; //1 ~ 20번째 비트 1로 체크
         return 2;
     }
 
