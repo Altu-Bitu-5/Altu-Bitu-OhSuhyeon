@@ -26,6 +26,6 @@ int main() {
     }
     
     // 출력
-    cout << q.top() << "\n";
+    cout << q.top();
     
 }

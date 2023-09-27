@@ -9,7 +9,7 @@ int main() {
     cin >> n;
 
     priority_queue<int> presents;
-    int a;
+    int a, num;
 
     while(n--) {
         cin >> a;
@@ -18,7 +18,7 @@ int main() {
         if(a == 0) {
             // 아이들에게 줄 선물이 없는 경우
             if(presents.empty()) {
-                cout << -1 << "\n";
+                cout << "-1\n";
             } else {
                 // 줄 선물이 있는 경우 가장 가치가 큰 선물 전달
                 cout << presents.top() << "\n";
@@ -26,7 +26,6 @@ int main() {
             }
         } else { // a가 0이 아닌 경우엔 충전할 선물의 갯수
             while(a--) {
-                int num;
                 cin >> num;
 
                 presents.push(num); // 선물 충전

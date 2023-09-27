@@ -36,20 +36,15 @@ bool similarWord(string s1, string s2) {
     int n1 = s1.size();
     int n2 = s2.size();
     
-    // s1과 s2의 사이즈가 같은 경우
-    // 같은 구성을 갖는 단어(diffCnt == 0)거나 다른 문자로 바꿔주는 경우
-    if(n1 == n2) {
-        return diffCnt == 0 || diffCnt == 2;
+    // 다른 문자로 바꿔주는 경우 (diffCnt == 2)
+    if(diffCnt == 2) {
+        // s1과 s2의 사이즈가 같은지 확인
+        return n1 == n2;
     }
 
-    // 사이즈 차이가 1인 경우
-    // 한 문자를 더하거나 빼주는 경우
-    if(abs(n1 - n2) == 1) {
-        return diffCnt == 1;
-    }
-    
-    // 그 외의 경우
-    return false;
+    // 같은 구성을 갖는 단어(diffCnt == 0)거나
+    // 한 문자를 더하거나 빼주는 경우 (diffCnt == 1)
+    return diffCnt == 0 || diffCnt == 1;
 }
 
 int main() {
