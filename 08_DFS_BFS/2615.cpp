@@ -29,11 +29,18 @@ bool checkWin(int x, int y, int color) {
             nx += dx[i];
             ny += dy[i];
         }
-
-        if(cnt == 5 && i == 3) {
+        
+        // cnt가 5이지만 만약 반대 방향으로 같은 색상이 있는 경우
+        // 연속된 바둑알이 5개를 초과하므로 승리하지 못 함
+        int px = x - dx[i];
+        int py = y - dy[i];
+        if(cnt == 5 && board[px][py] == color) {
+            return false;
+        }
+        if(cnt == 5 && i == 3) { // i == 3인 경우 가로줄이 감소함
             // 가장 왼쪽에 있는 위치 업데이트
-            left_x = nx + 1;
-            left_y = ny + 1;
+            left_x = nx - dx[i] + 1;
+            left_y = ny - dy[i] + 1;
             return true;
         } else if(cnt == 5) {
             left_x = x + 1;
