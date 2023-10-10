@@ -15,11 +15,7 @@ int dy[] = {1, 1, 0, -1, -1, -1, 0, 1};
 
 // 지도를 벗어나는 범위인지 아닌지 체크하는 함수
 bool checkAvail(int x, int y) {
-    if(x >= 0 && x < h && y >= 0 && y < w) {
-        return true;
-    }
-
-    return false;
+    return x >= 0 && x < h && y >= 0 && y < w;
 }
 
 
