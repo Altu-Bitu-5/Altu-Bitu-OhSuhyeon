@@ -7,7 +7,7 @@ const int MAX = 7;
 
 int n, m;
 int sequence[MAX];
-set<int> nums[MAX]; // 입력 숫자의 중복 제거를 위해 셋으로 입력값 받음
+set<int> nums; // 입력 숫자의 중복 제거를 위해 셋으로 입력값 받음
 
 void printSequence() {
     for(int num: sequence) {
@@ -25,8 +25,8 @@ void backtracking(int cnt) {
         return;
     }
 
-    for(auto iter = nums->begin(); iter != nums->end(); iter++) {
-        sequence[cnt] = *iter;
+    for(int num : nums) {
+        sequence[cnt] = num;
 
         // 다음 숫자 진행
         backtracking(cnt + 1);
@@ -40,7 +40,7 @@ int main() {
     int x;
     for (int i = 0; i < n; i++) {
         cin >> x;
-        nums->insert(x);
+        nums.insert(x);
     }
 
     // 연산 & 출력
